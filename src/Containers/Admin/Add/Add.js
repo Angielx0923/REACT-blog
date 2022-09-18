@@ -23,7 +23,8 @@ function Add() {
                 required: true,
                 minLength: 5,
                 maxLength: 30
-            }
+            },
+            touched: false
         },
         content: {
             elementType: 'textarea',
@@ -33,7 +34,8 @@ function Add() {
             valid: false,
             validation: {
                 required: true
-            }
+            },
+            touched: false
         },
         author: {
             elementType: 'input',
@@ -46,7 +48,8 @@ function Add() {
             valid: false,
             validation: {
                 required: true
-            }
+            },
+            touched: false
         },
         state: {
             elementType: 'select',
@@ -58,7 +61,8 @@ function Add() {
             },
             value: '',
             label: 'State',
-            valid: true
+            valid: true,
+            validation: {}
         }
     });
 
@@ -89,6 +93,9 @@ function Add() {
         const newInputs = {...inputs};
         newInputs[id].value = event.target.value;
 
+        // Set by default touched to true
+        newInputs[id].touched = true;
+
         // Check if the value is valid
         newInputs[id].valid = checkValidity(event.target.value, newInputs[id].validation);
 
@@ -104,7 +111,6 @@ function Add() {
 
     const formHandler = event => {
         event.preventDefault();
-        console.log('test');
     };
 
     // Variables
@@ -127,10 +133,12 @@ function Add() {
                     label={formElmt.config.label}
                     type={formElmt.config.elementType}
                     config={formElmt.config.elementConfig}
+                    valid={formElmt.config.valid}
+                    touched={formElmt.config.touched}
                     changed={(e) => inputChangedHandler(e, formElmt.id)}
                 />
             ))}
-            <input className={classes.Input} type="submit" value="Save" disabled={!valid}></input>
+            <input className={classes.submit} type="submit" value="Save" disabled={!valid}></input>
         </form>
     );
 

@@ -4,6 +4,12 @@ import classes from './Input.module.css';
 
 function Input(props) {
     let inputElmt;
+    const inputClasses = [];
+
+    // Add class invalid to input not checking the rules
+    if(!props.valid && props.touched) {
+        inputClasses.push(classes.invalid);
+    }
 
     // eslint-disable-next-line default-case
     switch(props.type) {
@@ -12,6 +18,7 @@ function Input(props) {
                 <input
                     {...props.config}
                     value={props.value}
+                    className={inputClasses}
                     id={props.id}
                     onChange={props.changed}
                 />
@@ -19,7 +26,7 @@ function Input(props) {
             break;
         case('textarea'):
             inputElmt = (
-                <textarea value={props.value} id={props.id} onChange={props.changed}></textarea>
+                <textarea value={props.value} className={inputClasses} id={props.id} onChange={props.changed}></textarea>
             );
             break;
         case('select'):
