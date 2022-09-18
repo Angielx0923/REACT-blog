@@ -58,9 +58,11 @@ function Add() {
             },
             value: '',
             label: 'State',
-            valid: false
+            valid: true
         }
     });
+
+    const [valid, setValid] = useState(false);
 
     const checkValidity = (value, rules) => {
         // Input set to true by default
@@ -93,7 +95,11 @@ function Add() {
         setInputs(newInputs);
 
         // Check if form is valid
-
+        let formIsValid = true;
+        for(let input in newInputs) {
+            formIsValid = newInputs[input].valid && formIsValid;
+        }
+        setValid(formIsValid);
     };
 
     const formHandler = event => {
@@ -124,7 +130,7 @@ function Add() {
                     changed={(e) => inputChangedHandler(e, formElmt.id)}
                 />
             ))}
-            <input className={classes.Input} type="submit" value="Save"></input>
+            <input className={classes.Input} type="submit" value="Save" disabled={!valid}></input>
         </form>
     );
 
