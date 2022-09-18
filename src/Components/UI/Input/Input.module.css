@@ -5,3 +5,12 @@
 .Input label {
     display: block;
 }
+
+.Input input, textarea {
+    width: 100%;
+    padding: 0.3rem;
+}
+
+.Input textarea {
+    height: 100px;
+}

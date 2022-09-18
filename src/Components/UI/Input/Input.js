@@ -12,17 +12,19 @@ function Input(props) {
                 <input
                     {...props.config}
                     value={props.value}
+                    id={props.id}
+                    onChange={props.changed}
                 />
             );
             break;
         case('textarea'):
             inputElmt = (
-                <textarea value={props.value}></textarea>
+                <textarea value={props.value} id={props.id} onChange={props.changed}></textarea>
             );
             break;
         case('select'):
             inputElmt = (
-                <select value={props.value}>
+                <select value={props.value} id={props.id} onChange={props.changed}>
                     {props.config.options.map(option => (
                         <option key={option.value} value={option.value}>
                             {option.displayValue}
@@ -35,7 +37,7 @@ function Input(props) {
 
     return (
         <div className={classes.Input}>
-            <label>{props.label}</label>
+            <label htmlFor={props.id}>{props.label}</label>
             {inputElmt}
         </div>
     );
